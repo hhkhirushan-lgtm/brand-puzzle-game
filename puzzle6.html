@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D'las Jigsaw - Puzzle 9</title>
+
+<style>
+
+:root {
+    --dlas-green: #3f6b2a;
+    --dlas-dark-green: #294b1d;
+    --dlas-light-green: #7fa65a;
+    --dlas-soft-green: #dfead1;
+    --dlas-gold: #d2b95d;
+    --dlas-gold-dark: #9d8535;
+    --cream: #faf8eb;
+    --shadow-green: rgba(43,72,29,.28);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family:
+        "Arial Rounded MT Bold",
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+    color: var(--dlas-dark-green);
+    background: #e8f0dc;
+}
+
+.game-screen {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 18px;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(255,255,255,.96) 0%,
+            rgba(255,255,255,.72) 20%,
+            transparent 50%
+        ),
+        radial-gradient(
+            circle at 5% 95%,
+            rgba(91,137,57,.32),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 95% 5%,
+            rgba(214,190,96,.30),
+            transparent 34%
+        ),
+        linear-gradient(
+            135deg,
+            #dfead1,
+            #fbfaee,
+            #dbe8ce
+        );
+}
+
+.game-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: .13;
+    background-image:
+        radial-gradient(
+            circle,
+            var(--dlas-green) 2px,
+            transparent 2px
+        );
+    background-size: 38px 38px;
+    pointer-events: none;
+}
+
+.game-screen::after {
+    content: "D'LAS";
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform:
+        translateY(-50%)
+        rotate(-90deg);
+    font-size: clamp(90px, 15vw, 190px);
+    font-weight: 1000;
+    letter-spacing: 10px;
+    color: rgba(63,107,42,.055);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: .50;
+    pointer-events: none;
+    animation: blobFloat 7s ease-in-out infinite;
+}
+
+.blob.one {
+    width: 300px;
+    height: 300px;
+    left: -160px;
+    top: -100px;
+    background: linear-gradient(135deg,#8db36a,#d8e8c4);
+}
+
+.blob.two {
+    width: 360px;
+    height: 360px;
+    right: -180px;
+    bottom: -170px;
+    background: linear-gradient(135deg,#d9c676,#f1e4b4);
+    animation-delay: 2s;
+}
+
+.blob.three {
+    width: 160px;
+    height: 160px;
+    right: 5%;
+    top: 22%;
+    background: #c9ddb4;
+    animation-delay: 1s;
+}
+
+@keyframes blobFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.leaf {
+    position: absolute;
+    z-index: 1;
+    font-size: 55px;
+    opacity: .60;
+    filter: drop-shadow(2px 4px 3px rgba(0,0,0,.12));
+    animation: leafFloat 5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.leaf.one {
+    left: 3%;
+    top: 27%;
+    transform: rotate(-25deg);
+}
+
+.leaf.two {
+    right: 4%;
+    bottom: 23%;
+    transform: rotate(25deg);
+    animation-delay: 1.5s;
+}
+
+.leaf.three {
+    left: 8%;
+    bottom: 8%;
+    font-size: 38px;
+    animation-delay: 2.5s;
+}
+
+@keyframes leafFloat {
+    0%,100% {
+        transform: translateY(0) rotate(-8deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(8deg);
+    }
+}
+
+.top-bar {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    max-width: 1350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 5px;
+}
+
+.game-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.97),
+            rgba(239,247,228,.94)
+        );
+
+    border: 3px solid var(--dlas-green);
+
+    box-shadow:
+        0 5px 0 rgba(47,80,30,.25),
+        0 8px 18px rgba(50,70,35,.14);
+
+    color: var(--dlas-green);
+
+    font-size: clamp(18px,2.6vw,32px);
+    font-weight: 1000;
+    letter-spacing: 1px;
+
+    text-shadow: 0 1px 0 white;
+}
+
+.game-title span {
+    font-size: clamp(24px,3vw,38px);
+    animation: puzzleIconFloat 2s ease-in-out infinite;
+}
+
+@keyframes puzzleIconFloat {
+    0%,100% {
+        transform: rotate(-5deg) scale(1);
+    }
+    50% {
+        transform: rotate(5deg) scale(1.08);
+    }
+}
+
+.brand-tag {
+    position: absolute;
+    top: -8px;
+    left: 23px;
+    padding: 2px 9px;
+    border-radius: 8px;
+    background: var(--dlas-green);
+    color: white;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,.15);
+}
+
+.info-box {
+    min-width: 145px;
+    padding: 9px 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.95);
+
+    color: var(--dlas-green);
+
+    border: 3px solid rgba(105,145,70,.65);
+
+    box-shadow:
+        0 5px 0 rgba(63,107,42,.22),
+        0 9px 20px rgba(60,70,40,.10);
+
+    font-size: clamp(15px,1.7vw,21px);
+    font-weight: 900;
+}
+
+#timer {
+    min-width: 130px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            180deg,
+            #4f8136,
+            #315b25
+        );
+
+    border-color: #e2d083;
+
+    text-shadow:
+        1px 2px 0 rgba(20,40,15,.35);
+}
+
+#timer.warning {
+    background:
+        linear-gradient(
+            180deg,
+            #e46c57,
+            #bd413d
+        );
+
+    animation: timerPulse .8s infinite;
+}
+
+@keyframes timerPulse {
+    0%,100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.07);
+    }
+}
+
+.game-area {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-frame {
+    position: relative;
+    padding: 11px;
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #6e984c 0%,
+            #3f6b2a 45%,
+            #294b1d 100%
+        );
+
+    border: 3px solid #89aa67;
+
+    box-shadow:
+        0 8px 0 #243f1b,
+        0 0 0 4px rgba(218,200,105,.55),
+        0 18px 35px rgba(35,55,25,.32);
+}
+
+.board-frame::before {
+    content: "D'LAS";
+    position: absolute;
+    left: 50%;
+    bottom: -31px;
+    transform: translateX(-50%);
+
+    padding: 3px 15px;
+    border-radius: 0 0 10px 10px;
+
+    background: var(--dlas-green);
+    color: #fff;
+
+    font-size: 12px;
+    font-weight: 1000;
+    letter-spacing: 3px;
+
+    border: 2px solid #d8c36b;
+
+    box-shadow:
+        0 3px 5px rgba(0,0,0,.15);
+
+    z-index: 50;
+}
+
+#puzzleBoard {
+    position: relative;
+
+    width: min(70vh,70vw,720px);
+    height: min(70vh,70vw,720px);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.65),
+            rgba(232,242,219,.70)
+        );
+
+    border: 5px solid rgba(255,255,255,.98);
+    border-radius: 19px;
+
+    box-shadow:
+        inset 0 0 0 3px rgba(55,91,36,.25),
+        inset 0 0 25px rgba(45,70,30,.16),
+        0 5px 15px rgba(30,50,20,.20);
+
+    overflow: visible;
+}
+
+#puzzleBoard::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: 13px;
+
+    background-image:
+        url("images/puzzle6.jpg");
+
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    opacity: .18;
+
+    filter:
+        grayscale(.20)
+        brightness(1.18)
+        saturate(.70);
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+#puzzleBoard::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            to right,
+            rgba(63,107,42,.14) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            to bottom,
+            rgba(63,107,42,.14) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        11.111111% 11.111111%;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* =========================================================
+   PUZZLE PIECES - 9 x 9
+========================================================= */
+
+.piece {
+    position: absolute;
+
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+
+    background-image:
+        url("images/puzzle6.jpg");
+
+    background-repeat: no-repeat;
+
+    cursor: grab;
+
+    z-index: 10;
+
+    touch-action: none;
+
+    border-radius: 2px;
+
+    transition:
+        left .18s ease,
+        top .18s ease,
+        transform .15s ease,
+        filter .15s ease;
+
+    box-shadow:
+        0 2px 4px rgba(0,0,0,.28),
+        0 0 0 1px rgba(255,255,255,.65);
+}
+
+.piece::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    border-radius: 2px;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.35),
+        inset 0 -2px 4px rgba(0,0,0,.12);
+
+    pointer-events: none;
+}
+
+.piece:hover {
+    filter:
+        brightness(1.08)
+        drop-shadow(
+            0 4px 6px rgba(0,0,0,.25)
+        );
+
+    z-index: 30;
+}
+
+.piece:active {
+    cursor: grabbing;
+    transform: scale(1.04);
+    z-index: 50;
+}
+
+.piece.locked {
+    cursor: default;
+    z-index: 5;
+
+    filter: brightness(1.04);
+
+    pointer-events: none;
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.75),
+        0 1px 3px rgba(0,0,0,.10);
+
+    transition:
+        left .2s ease,
+        top .2s ease,
+        filter .2s ease;
+}
+
+.piece.locked::after {
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.45);
+}
+
+.piece:not(.locked) {
+    z-index: 10;
+}
+
+.piece.dragging {
+    z-index: 1000 !important;
+
+    transform: scale(1.05);
+
+    cursor: grabbing;
+
+    filter:
+        brightness(1.10)
+        drop-shadow(
+            0 10px 12px rgba(0,0,0,.35)
+        );
+}
+
+.piece.correct-flash {
+    animation:
+        correctFlash .35s ease;
+}
+
+@keyframes correctFlash {
+    0% {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+
+    50% {
+        filter: brightness(1.55);
+        transform: scale(1.06);
+    }
+
+    100% {
+        filter: brightness(1.04);
+        transform: scale(1);
+    }
+}
+
+.bottom-bar {
+    position: relative;
+    z-index: 20;
+
+    width: 100%;
+    max-width: 1350px;
+
+    display: flex;
+    justify-content: center;
+
+    gap: 15px;
+
+    padding-top: 8px;
+}
+
+.game-button {
+    border: 2px solid var(--dlas-green);
+
+    min-width: 150px;
+
+    padding: 10px 24px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #edf5e4
+        );
+
+    color: var(--dlas-green);
+
+    font-size: clamp(15px,1.6vw,20px);
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 0 rgba(49,83,32,.35),
+        0 8px 18px rgba(45,65,30,.12);
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+}
+
+.game-button:hover {
+    transform: translateY(-3px);
+
+    background: #fafff5;
+
+    box-shadow:
+        0 8px 0 rgba(49,83,32,.35),
+        0 12px 22px rgba(45,65,30,.16);
+}
+
+.game-button:active {
+    transform: translateY(4px);
+
+    box-shadow:
+        0 2px 0 rgba(49,83,32,.35);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(32,58,25,.82);
+
+    backdrop-filter: blur(8px);
+
+    z-index: 200;
+}
+
+.overlay.show {
+    display: flex;
+}
+
+.result-box {
+    position: relative;
+
+    width: min(90%,560px);
+
+    padding: 42px 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f4f8e9
+        );
+
+    color: var(--dlas-dark-green);
+
+    border-radius: 32px;
+
+    border: 6px solid var(--dlas-green);
+
+    text-align: center;
+
+    box-shadow:
+        0 10px 0 #294b1d,
+        0 0 0 4px rgba(210,185,93,.7),
+        0 25px 60px rgba(0,0,0,.35);
+
+    animation: resultPop .4s ease;
+}
+
+@keyframes resultPop {
+    0% {
+        transform: scale(.5);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.07);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.result-box::before {
+    content: "D'LAS";
+
+    position: absolute;
+
+    top: -17px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    padding: 5px 18px;
+
+    border-radius: 12px;
+
+    background: var(--dlas-green);
+    color: white;
+
+    font-size: 12px;
+    font-weight: 1000;
+    letter-spacing: 3px;
+
+    border: 2px solid #d8c36b;
+}
+
+.result-box::after {
+    content: "✦";
+
+    position: absolute;
+
+    bottom: 12px;
+    right: 20px;
+
+    color: #9db477;
+
+    font-size: 28px;
+}
+
+.result-icon {
+    font-size: 70px;
+
+    margin-bottom: 12px;
+
+    animation:
+        resultIconBounce
+        1s ease-in-out infinite;
+}
+
+@keyframes resultIconBounce {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.result-title {
+    font-size: clamp(30px,4vw,42px);
+
+    font-weight: 900;
+
+    color: var(--dlas-green);
+
+    margin-bottom: 10px;
+}
+
+.result-message {
+    font-size: clamp(17px,2vw,21px);
+
+    line-height: 1.4;
+
+    color: #6f805b;
+
+    margin-bottom: 28px;
+}
+
+.result-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap;
+}
+
+.result-button {
+    border: 2px solid var(--dlas-gold);
+
+    padding: 14px 25px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #56883d,
+            #315d25
+        );
+
+    color: white;
+
+    font-size: clamp(16px,1.7vw,19px);
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 0 #243f1b;
+
+    transition:
+        transform .15s ease;
+}
+
+.result-button:hover {
+    transform: translateY(-3px);
+}
+
+.result-button:active {
+    transform: translateY(3px);
+}
+
+@media (min-width:1600px) {
+
+    .game-screen {
+        padding: 18px 25px;
+    }
+
+    #puzzleBoard {
+        width: min(70vh,70vw,850px);
+        height: min(70vh,70vw,850px);
+    }
+
+    .board-frame {
+        padding: 12px;
+        border-radius: 32px;
+    }
+
+    .game-title {
+        padding: 11px 22px;
+    }
+
+    .info-box {
+        min-width: 175px;
+        padding: 12px 22px;
+    }
+
+    .game-button {
+        min-width: 180px;
+        padding: 13px 30px;
+    }
+}
+
+@media (max-width:700px) {
+
+    .game-screen {
+        padding: 7px;
+    }
+
+    .top-bar {
+        gap: 6px;
+        margin-bottom: 3px;
+    }
+
+    .game-title {
+        padding: 6px 9px;
+        font-size: 15px;
+        border-radius: 12px;
+    }
+
+    .game-title span {
+        font-size: 18px;
+    }
+
+    .info-box {
+        min-width: auto;
+        padding: 6px 8px;
+        font-size: 12px;
+        border-width: 2px;
+        border-radius: 11px;
+    }
+
+    #timer {
+        min-width: 75px;
+    }
+
+    .board-frame {
+        padding: 6px;
+        border-radius: 19px;
+    }
+
+    .board-frame::before {
+        bottom: -26px;
+        font-size: 9px;
+        padding: 3px 10px;
+    }
+
+    #puzzleBoard {
+        width: 91vw;
+        height: 91vw;
+        border-width: 4px;
+        border-radius: 14px;
+    }
+
+    .bottom-bar {
+        gap: 8px;
+        padding-top: 5px;
+    }
+
+    .game-button {
+        min-width: 120px;
+        padding: 7px 12px;
+        font-size: 13px;
+        border-radius: 11px;
+    }
+
+    .leaf {
+        font-size: 35px;
+    }
+
+    .blob.one {
+        width: 180px;
+        height: 180px;
+    }
+
+    .blob.two {
+        width: 220px;
+        height: 220px;
+    }
+
+    .result-box {
+        padding: 32px 20px;
+        border-width: 4px;
+        border-radius: 25px;
+    }
+
+    .result-icon {
+        font-size: 55px;
+    }
+
+    .result-buttons {
+        gap: 10px;
+    }
+
+    .result-button {
+        padding: 11px 17px;
+        font-size: 14px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<main class="game-screen">
+
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+
+    <div class="leaf one">🌿</div>
+    <div class="leaf two">🍃</div>
+    <div class="leaf three">🌱</div>
+
+    <div class="top-bar">
+
+        <div class="game-title">
+
+            <div class="brand-tag">
+                D'LAS INTERNATIONAL
+            </div>
+
+            <span>🧩</span>
+
+            <div>
+                D'LAS JIGSAW
+            </div>
+
+        </div>
+
+        <div class="info-box">
+
+            🔢 MOVES:
+
+            <span id="moves">
+                0
+            </span>
+
+        </div>
+
+        <div
+            class="info-box"
+            id="timer"
+        >
+            ⏱️ 05:00
+        </div>
+
+    </div>
+
+    <div class="game-area">
+
+        <div class="board-frame">
+
+            <div id="puzzleBoard"></div>
+
+        </div>
+
+    </div>
+
+    <div class="bottom-bar">
+
+        <button
+            class="game-button"
+            onclick="restartGame()"
+        >
+            🔄 RESTART
+        </button>
+
+        <button
+            class="game-button"
+            onclick="goHome()"
+        >
+            🏠 HOME
+        </button>
+
+    </div>
+
+</main>
+
+
+<div
+    class="overlay"
+    id="resultOverlay"
+>
+
+    <div class="result-box">
+
+        <div
+            class="result-icon"
+            id="resultIcon"
+        >
+            🎉
+        </div>
+
+        <div
+            class="result-title"
+            id="resultTitle"
+        >
+            YOU WIN!
+        </div>
+
+        <div
+            class="result-message"
+            id="resultMessage"
+        >
+            Great job!
+        </div>
+
+        <div
+            class="result-buttons"
+            id="resultButtons"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PUZZLE SETTINGS - 9 x 9
+========================================================= */
+
+const GRID = 9;
+
+const TOTAL = GRID * GRID;
+
+const GAME_TIME = 8 * 60;
+
+
+/* =========================================================
+   GAME VARIABLES
+========================================================= */
+
+let pieces = [];
+
+let moves = 0;
+
+let timeLeft = GAME_TIME;
+
+let timerInterval = null;
+
+let gameFinished = false;
+
+let draggedPiece = null;
+
+let dragOffsetX = 0;
+
+let dragOffsetY = 0;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const board =
+    document.getElementById("puzzleBoard");
+
+const movesDisplay =
+    document.getElementById("moves");
+
+const timerDisplay =
+    document.getElementById("timer");
+
+
+/* =========================================================
+   CREATE PUZZLE
+========================================================= */
+
+function createPuzzle() {
+
+    board.innerHTML = "";
+
+    pieces = [];
+
+
+    for (
+        let i = 0;
+        i < TOTAL;
+        i++
+    ) {
+
+        const row =
+            Math.floor(i / GRID);
+
+        const col =
+            i % GRID;
+
+
+        const piece =
+            document.createElement("div");
+
+
+        piece.className = "piece";
+
+
+        piece.dataset.index = i;
+
+        piece.dataset.row = row;
+
+        piece.dataset.col = col;
+
+
+        /*
+         * Split puzzle3.jpg into 9 x 9.
+         */
+
+        piece.style.backgroundSize =
+            `${GRID * 100}% ${GRID * 100}%`;
+
+
+        /*
+         * Each piece receives
+         * its correct section
+         * of the image.
+         */
+
+        const x =
+            (col / (GRID - 1)) * 100;
+
+        const y =
+            (row / (GRID - 1)) * 100;
+
+
+        piece.style.backgroundPosition =
+            `${x}% ${y}%`;
+
+
+        piece.dataset.correctX = col;
+
+        piece.dataset.correctY = row;
+
+
+        /*
+         * Random starting position.
+         */
+
+        const randomX =
+            Math.random() *
+            (
+                board.clientWidth -
+                board.clientWidth / GRID
+            );
+
+
+        const randomY =
+            Math.random() *
+            (
+                board.clientHeight -
+                board.clientHeight / GRID
+            );
+
+
+        piece.style.left =
+            randomX + "px";
+
+        piece.style.top =
+            randomY + "px";
+
+
+        piece.addEventListener(
+            "pointerdown",
+            startDrag
+        );
+
+
+        pieces.push(piece);
+
+        board.appendChild(piece);
+
+    }
+
+}
+
+
+/* =========================================================
+   START DRAG
+========================================================= */
+
+function startDrag(event) {
+
+    if (gameFinished) {
+        return;
+    }
+
+    if (
+        this.classList.contains("locked")
+    ) {
+        return;
+    }
+
+
+    draggedPiece = this;
+
+
+    const rect =
+        this.getBoundingClientRect();
+
+
+    dragOffsetX =
+        event.clientX - rect.left;
+
+    dragOffsetY =
+        event.clientY - rect.top;
+
+
+    this.setPointerCapture(
+        event.pointerId
+    );
+
+
+    this.style.transition = "none";
+
+
+    this.classList.add("dragging");
+
+
+    this.addEventListener(
+        "pointermove",
+        dragMove
+    );
+
+    this.addEventListener(
+        "pointerup",
+        endDrag
+    );
+
+    this.addEventListener(
+        "pointercancel",
+        endDrag
+    );
+
+}
+
+
+/* =========================================================
+   DRAG MOVE
+========================================================= */
+
+function dragMove(event) {
+
+    if (!draggedPiece) {
+        return;
+    }
+
+
+    const boardRect =
+        board.getBoundingClientRect();
+
+
+    let x =
+        event.clientX -
+        boardRect.left -
+        dragOffsetX;
+
+
+    let y =
+        event.clientY -
+        boardRect.top -
+        dragOffsetY;
+
+
+    const maxX =
+        board.clientWidth -
+        draggedPiece.offsetWidth;
+
+
+    const maxY =
+        board.clientHeight -
+        draggedPiece.offsetHeight;
+
+
+    x =
+        Math.max(
+            0,
+            Math.min(x,maxX)
+        );
+
+
+    y =
+        Math.max(
+            0,
+            Math.min(y,maxY)
+        );
+
+
+    draggedPiece.style.left =
+        x + "px";
+
+
+    draggedPiece.style.top =
+        y + "px";
+
+}
+
+
+/* =========================================================
+   END DRAG
+========================================================= */
+
+function endDrag(event) {
+
+    if (!draggedPiece) {
+        return;
+    }
+
+
+    const piece =
+        draggedPiece;
+
+
+    piece.removeEventListener(
+        "pointermove",
+        dragMove
+    );
+
+    piece.removeEventListener(
+        "pointerup",
+        endDrag
+    );
+
+    piece.removeEventListener(
+        "pointercancel",
+        endDrag
+    );
+
+
+    piece.releasePointerCapture?.(
+        event.pointerId
+    );
+
+
+    piece.classList.remove(
+        "dragging"
+    );
+
+
+    piece.style.transition =
+        "left .18s ease, top .18s ease";
+
+
+    moves++;
+
+    movesDisplay.textContent =
+        moves;
+
+
+    checkPiecePosition(piece);
+
+
+    draggedPiece = null;
+
+}
+
+
+/* =========================================================
+   CHECK PIECE POSITION
+========================================================= */
+
+function checkPiecePosition(piece) {
+
+    const col =
+        Number(
+            piece.dataset.correctX
+        );
+
+    const row =
+        Number(
+            piece.dataset.correctY
+        );
+
+
+    const correctX =
+        col *
+        (
+            board.clientWidth /
+            GRID
+        );
+
+
+    const correctY =
+        row *
+        (
+            board.clientHeight /
+            GRID
+        );
+
+
+    const currentX =
+        parseFloat(
+            piece.style.left
+        );
+
+    const currentY =
+        parseFloat(
+            piece.style.top
+        );
+
+
+    /*
+     * Smaller pieces need a smaller
+     * snap distance for the 9 x 9 puzzle.
+     */
+
+    const snapDistance =
+        Math.min(
+            board.clientWidth,
+            board.clientHeight
+        ) / 18;
+
+
+    const distance =
+        Math.sqrt(
+
+            Math.pow(
+                currentX - correctX,
+                2
+            )
+
+            +
+
+            Math.pow(
+                currentY - correctY,
+                2
+            )
+
+        );
+
+
+    if (
+        distance <= snapDistance
+    ) {
+
+        piece.style.left =
+            correctX + "px";
+
+        piece.style.top =
+            correctY + "px";
+
+
+        piece.classList.add(
+            "locked"
+        );
+
+
+        piece.classList.add(
+            "correct-flash"
+        );
+
+
+        setTimeout(
+            () => {
+
+                piece.classList.remove(
+                    "correct-flash"
+                );
+
+            },
+            350
+        );
+
+
+        checkPuzzleComplete();
+
+    }
+
+}
+
+
+/* =========================================================
+   CHECK COMPLETE
+========================================================= */
+
+function checkPuzzleComplete() {
+
+    const lockedPieces =
+        document.querySelectorAll(
+            ".piece.locked"
+        );
+
+
+    if (
+        lockedPieces.length === TOTAL
+    ) {
+
+        winGame();
+
+    }
+
+}
+
+
+/* =========================================================
+   WIN GAME
+========================================================= */
+
+function winGame() {
+
+    if (gameFinished) {
+        return;
+    }
+
+
+    gameFinished = true;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    localStorage.setItem(
+        "puzzle9Completed",
+        "true"
+    );
+
+
+    showResult(
+
+        "🎉",
+
+        "PUZZLE 9 COMPLETE!",
+
+        "Amazing! You solved Puzzle 9 before the time ran out."
+
+    );
+
+}
+
+
+/* =========================================================
+   GAME OVER
+========================================================= */
+
+function gameOver() {
+
+    if (gameFinished) {
+        return;
+    }
+
+
+    gameFinished = true;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    showResult(
+
+        "⏰",
+
+        "TIME'S UP!",
+
+        "Sorry! You couldn't complete Puzzle 9 in 5 minutes."
+
+    );
+
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+function showResult(
+    icon,
+    title,
+    message
+) {
+
+    document.getElementById(
+        "resultIcon"
+    ).textContent = icon;
+
+
+    document.getElementById(
+        "resultTitle"
+    ).textContent = title;
+
+
+    document.getElementById(
+        "resultMessage"
+    ).textContent = message;
+
+
+    const buttons =
+        document.getElementById(
+            "resultButtons"
+        );
+
+
+    if (
+        title === "PUZZLE 9 COMPLETE!"
+    ) {
+
+        buttons.innerHTML = `
+
+            <button
+                class="result-button"
+                onclick="goToGifts()"
+            >
+                🎁 CHOOSE YOUR GIFT
+            </button>
+
+            <button
+                class="result-button"
+                onclick="restartGame()"
+            >
+                🔄 TRY AGAIN
+            </button>
+
+        `;
+
+    }
+
+    else {
+
+        buttons.innerHTML = `
+
+            <button
+                class="result-button"
+                onclick="restartGame()"
+            >
+                🔄 TRY AGAIN
+            </button>
+
+            <button
+                class="result-button"
+                onclick="goHome()"
+            >
+                🏠 HOME
+            </button>
+
+        `;
+
+    }
+
+
+    document.getElementById(
+        "resultOverlay"
+    ).classList.add("show");
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer() {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    timerInterval =
+        setInterval(
+            () => {
+
+                if (gameFinished) {
+                    return;
+                }
+
+
+                timeLeft--;
+
+
+                updateTimer();
+
+
+                if (timeLeft <= 30) {
+
+                    timerDisplay.classList.add(
+                        "warning"
+                    );
+
+                }
+
+
+                if (timeLeft <= 0) {
+
+                    timeLeft = 0;
+
+                    updateTimer();
+
+                    gameOver();
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+/* =========================================================
+   TIMER DISPLAY
+========================================================= */
+
+function updateTimer() {
+
+    const minutes =
+        Math.floor(
+            timeLeft / 60
+        );
+
+
+    const seconds =
+        timeLeft % 60;
+
+
+    timerDisplay.textContent =
+
+        "⏱️ " +
+
+        String(minutes).padStart(
+            2,
+            "0"
+        )
+
+        +
+
+        ":"
+
+        +
+
+        String(seconds).padStart(
+            2,
+            "0"
+        );
+
+}
+
+
+/* =========================================================
+   RESTART GAME
+========================================================= */
+
+function restartGame() {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    moves = 0;
+
+    timeLeft = GAME_TIME;
+
+    gameFinished = false;
+
+    draggedPiece = null;
+
+
+    movesDisplay.textContent = "0";
+
+
+    timerDisplay.classList.remove(
+        "warning"
+    );
+
+
+    document.getElementById(
+        "resultOverlay"
+    ).classList.remove("show");
+
+
+    localStorage.removeItem(
+        "puzzle9Completed"
+    );
+
+
+    updateTimer();
+
+
+    requestAnimationFrame(
+        () => {
+
+            createPuzzle();
+
+            startTimer();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function goHome() {
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =========================================================
+   GO TO GIFTS
+========================================================= */
+
+function goToGifts() {
+
+    window.location.href =
+        "gifts.html";
+
+}
+
+
+/* =========================================================
+   START GAME
+========================================================= */
+
+requestAnimationFrame(
+    () => {
+
+        createPuzzle();
+
+        updateTimer();
+
+        startTimer();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
