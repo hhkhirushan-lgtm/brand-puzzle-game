@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>D'Las Jigsaw - Choose Puzzle</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+
+    font-family:
+        "Arial Rounded MT Bold",
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+
+    overflow-x: hidden;
+
+    color: #52663a;
+
+    background:
+        linear-gradient(
+            135deg,
+            #e8efd9,
+            #faf7e7,
+            #e3ecd3
+        );
+}
+
+
+/* =========================================================
+   MAIN SCREEN
+========================================================= */
+
+.game-screen {
+
+    position: relative;
+
+    min-height: 100vh;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding: 22px 20px 25px;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(255,255,255,.95),
+            rgba(255,255,255,.45) 30%,
+            transparent 60%
+        ),
+
+        radial-gradient(
+            circle at 5% 95%,
+            rgba(142,174,94,.30),
+            transparent 32%
+        ),
+
+        radial-gradient(
+            circle at 95% 5%,
+            rgba(216,190,101,.28),
+            transparent 32%
+        );
+}
+
+
+/* =========================================================
+   DOT PATTERN
+========================================================= */
+
+.game-screen::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .11;
+
+    background-image:
+        radial-gradient(
+            circle,
+            #789252 2px,
+            transparent 2px
+        );
+
+    background-size: 38px 38px;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BLOBS
+========================================================= */
+
+.blob {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    opacity: .55;
+
+    animation:
+        blobFloat 7s ease-in-out infinite;
+}
+
+.blob.one {
+
+    width: 320px;
+    height: 320px;
+
+    left: -170px;
+    top: -120px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a7c27d,
+            #d9e6b9
+        );
+}
+
+.blob.two {
+
+    width: 390px;
+    height: 390px;
+
+    right: -200px;
+    bottom: -190px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d9c579,
+            #f0dfaa
+        );
+
+    animation-delay: 2s;
+}
+
+.blob.three {
+
+    width: 170px;
+    height: 170px;
+
+    right: 6%;
+    top: 28%;
+
+    background:
+        #d8e6bc;
+
+    animation-delay: 1s;
+}
+
+
+@keyframes blobFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+    50% {
+
+        transform:
+            translateY(-15px)
+            scale(1.03);
+    }
+}
+
+
+/* =========================================================
+   LEAVES
+========================================================= */
+
+.leaf {
+
+    position: absolute;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    opacity: .55;
+
+    filter:
+        drop-shadow(
+            2px 4px 3px
+            rgba(0,0,0,.12)
+        );
+
+    animation:
+        leafFloat 5s ease-in-out infinite;
+}
+
+.leaf.one {
+
+    left: 3%;
+    top: 27%;
+
+    font-size: 52px;
+
+    transform:
+        rotate(-20deg);
+}
+
+.leaf.two {
+
+    right: 4%;
+    bottom: 24%;
+
+    font-size: 50px;
+
+    animation-delay: 1.5s;
+}
+
+.leaf.three {
+
+    left: 8%;
+    bottom: 8%;
+
+    font-size: 38px;
+
+    animation-delay: 2.5s;
+}
+
+
+@keyframes leafFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(-8deg);
+    }
+
+    50% {
+
+        transform:
+            translateY(-12px)
+            rotate(8deg);
+    }
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+
+    position: relative;
+
+    z-index: 10;
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+    animation:
+        headerAppear .7s ease;
+}
+
+
+@keyframes headerAppear {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(-25px)
+            scale(.95);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.title {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #52683a;
+
+    font-size:
+        clamp(
+            27px,
+            4vw,
+            48px
+        );
+
+    font-weight: 900;
+
+    letter-spacing: .5px;
+
+    text-shadow:
+        0 3px 0
+        rgba(255,255,255,.8);
+}
+
+
+.title-icon {
+
+    display: inline-block;
+
+    font-size:
+        clamp(
+            32px,
+            4.5vw,
+            55px
+        );
+
+    animation:
+        puzzleFloat 2.5s
+        ease-in-out infinite;
+}
+
+
+@keyframes puzzleFloat {
+
+    0%,
+    100% {
+
+        transform:
+            rotate(-8deg)
+            translateY(0);
+    }
+
+    50% {
+
+        transform:
+            rotate(8deg)
+            translateY(-7px);
+    }
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.subtitle {
+
+    margin-top: 6px;
+
+    color: #7a875e;
+
+    font-size:
+        clamp(
+            15px,
+            2vw,
+            21px
+        );
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   LEVEL AREA
+========================================================= */
+
+.level-area {
+
+    position: relative;
+
+    z-index: 10;
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   LEVEL GRID
+========================================================= */
+
+.level-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 16px;
+}
+
+
+/* =========================================================
+   LEVEL CARD
+========================================================= */
+
+.level-card {
+
+    position: relative;
+
+    min-height: 155px;
+
+    padding: 14px;
+
+    border-radius: 23px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .88
+        );
+
+    border:
+        3px solid
+        rgba(
+            208,
+            190,
+            99,
+            .55
+        );
+
+    box-shadow:
+
+        0 6px 0
+        rgba(
+            105,
+            119,
+            67,
+            .20
+        ),
+
+        0 12px 25px
+        rgba(
+            60,
+            70,
+            40,
+            .12
+        );
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transform:
+        translateY(0);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease;
+}
+
+
+/* =========================================================
+   CARD SHINE
+========================================================= */
+
+.level-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 80px;
+    height: 220px;
+
+    top: -100px;
+    left: -120px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .45
+        );
+
+    transform:
+        rotate(25deg);
+
+    transition:
+        left .6s ease;
+
+    pointer-events: none;
+}
+
+.level-card:hover::before {
+
+    left: 130%;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.level-card:hover {
+
+    transform:
+        translateY(-8px)
+        scale(1.025);
+
+    border-color:
+        rgba(
+            190,
+            166,
+            76,
+            .95
+        );
+
+    box-shadow:
+
+        0 10px 0
+        rgba(
+            105,
+            119,
+            67,
+            .22
+        ),
+
+        0 20px 35px
+        rgba(
+            60,
+            70,
+            40,
+            .20
+        );
+}
+
+
+/* =========================================================
+   CLICK
+========================================================= */
+
+.level-card:active {
+
+    transform:
+        translateY(3px)
+        scale(.97);
+
+    box-shadow:
+        0 3px 0
+        rgba(
+            105,
+            119,
+            67,
+            .22
+        );
+}
+
+
+/* =========================================================
+   LEVEL NUMBER
+========================================================= */
+
+.level-number {
+
+    position: absolute;
+
+    top: 9px;
+    left: 10px;
+
+    min-width: 32px;
+
+    padding:
+        4px 8px;
+
+    border-radius: 10px;
+
+    background:
+        #eef2df;
+
+    color: #72834f;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   PUZZLE ICON
+========================================================= */
+
+.level-icon {
+
+    font-size: 42px;
+
+    margin-bottom: 3px;
+
+    animation:
+        iconBounce 3s
+        ease-in-out infinite;
+}
+
+
+.level-card:nth-child(2) .level-icon {
+    animation-delay: .2s;
+}
+
+.level-card:nth-child(3) .level-icon {
+    animation-delay: .4s;
+}
+
+.level-card:nth-child(4) .level-icon {
+    animation-delay: .6s;
+}
+
+.level-card:nth-child(5) .level-icon {
+    animation-delay: .8s;
+}
+
+.level-card:nth-child(6) .level-icon {
+    animation-delay: 1s;
+}
+
+.level-card:nth-child(7) .level-icon {
+    animation-delay: 1.2s;
+}
+
+.level-card:nth-child(8) .level-icon {
+    animation-delay: 1.4s;
+}
+
+.level-card:nth-child(9) .level-icon {
+    animation-delay: 1.6s;
+}
+
+.level-card:nth-child(10) .level-icon {
+    animation-delay: 1.8s;
+}
+
+
+@keyframes iconBounce {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0);
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px)
+            rotate(4deg);
+    }
+}
+
+
+/* =========================================================
+   LEVEL TITLE
+========================================================= */
+
+.level-title {
+
+    color: #52683a;
+
+    font-size: 18px;
+
+    font-weight: 900;
+
+    margin-bottom: 3px;
+}
+
+
+/* =========================================================
+   GRID SIZE
+========================================================= */
+
+.grid-size {
+
+    color: #849264;
+
+    font-size: 15px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   DIFFICULTY
+========================================================= */
+
+.difficulty {
+
+    margin-top: 7px;
+
+    padding:
+        4px 10px;
+
+    border-radius: 10px;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    letter-spacing: .3px;
+}
+
+
+.easy {
+
+    color: #527238;
+
+    background:
+        #e0edcf;
+}
+
+
+.medium {
+
+    color: #82702c;
+
+    background:
+        #f0e7b9;
+}
+
+
+.hard {
+
+    color: #9a6332;
+
+    background:
+        #f5dec2;
+}
+
+
+.very-hard {
+
+    color: #a24d3d;
+
+    background:
+        #f3d2c9;
+}
+
+
+.extreme {
+
+    color: #91403c;
+
+    background:
+        #ecc5c1;
+}
+
+
+.master {
+
+    color: #785c1d;
+
+    background:
+        #ead596;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.bottom {
+
+    position: relative;
+
+    z-index: 20;
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   HOME BUTTON
+========================================================= */
+
+.home-button {
+
+    border: none;
+
+    padding:
+        11px 25px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .95
+        );
+
+    color: #607744;
+
+    border:
+        3px solid
+        rgba(
+            208,
+            190,
+            99,
+            .65
+        );
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+
+        0 5px 0
+        rgba(
+            105,
+            119,
+            67,
+            .30
+        ),
+
+        0 8px 18px
+        rgba(
+            60,
+            70,
+            40,
+            .12
+        );
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+}
+
+
+.home-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+
+        0 8px 0
+        rgba(
+            105,
+            119,
+            67,
+            .30
+        ),
+
+        0 12px 22px
+        rgba(
+            60,
+            70,
+            40,
+            .16
+        );
+}
+
+
+.home-button:active {
+
+    transform:
+        translateY(3px);
+
+    box-shadow:
+        0 2px 0
+        rgba(
+            105,
+            119,
+            67,
+            .30
+        );
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .level-grid {
+
+        grid-template-columns:
+            repeat(4, 1fr);
+
+        gap: 13px;
+    }
+
+    .level-card {
+
+        min-height: 145px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .game-screen {
+
+        padding:
+            15px 10px 18px;
+    }
+
+    .header {
+
+        margin-bottom: 12px;
+    }
+
+    .title {
+
+        font-size: 25px;
+
+        gap: 7px;
+    }
+
+    .title-icon {
+
+        font-size: 32px;
+    }
+
+    .subtitle {
+
+        font-size: 14px;
+    }
+
+    .level-grid {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 10px;
+
+        max-width: 500px;
+    }
+
+    .level-card {
+
+        min-height: 132px;
+
+        padding: 10px;
+
+        border-radius: 18px;
+
+        border-width: 2px;
+    }
+
+    .level-icon {
+
+        font-size: 34px;
+    }
+
+    .level-title {
+
+        font-size: 15px;
+    }
+
+    .grid-size {
+
+        font-size: 13px;
+    }
+
+    .difficulty {
+
+        font-size: 9px;
+
+        padding:
+            4px 8px;
+
+        margin-top: 5px;
+    }
+
+    .level-number {
+
+        top: 7px;
+        left: 7px;
+
+        min-width: 27px;
+
+        padding:
+            3px 6px;
+
+        font-size: 10px;
+    }
+
+    .bottom {
+
+        margin-top: 12px;
+    }
+
+    .home-button {
+
+        padding:
+            9px 20px;
+
+        font-size: 14px;
+    }
+
+    .leaf {
+
+        font-size: 32px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .level-grid {
+
+        gap: 8px;
+    }
+
+    .level-card {
+
+        min-height: 120px;
+    }
+
+    .level-icon {
+
+        font-size: 30px;
+    }
+
+    .level-title {
+
+        font-size: 14px;
+    }
+
+    .grid-size {
+
+        font-size: 12px;
+    }
+
+    .difficulty {
+
+        font-size: 8px;
+    }
+}
+
+
+/* =========================================================
+   SHORT SCREEN
+========================================================= */
+
+@media (max-height: 700px) {
+
+    .game-screen {
+
+        padding-top: 10px;
+        padding-bottom: 12px;
+    }
+
+    .header {
+
+        margin-bottom: 8px;
+    }
+
+    .title {
+
+        font-size: 27px;
+    }
+
+    .subtitle {
+
+        margin-top: 2px;
+    }
+
+    .level-grid {
+
+        gap: 9px;
+    }
+
+    .level-card {
+
+        min-height: 112px;
+
+        padding: 7px;
+    }
+
+    .level-icon {
+
+        font-size: 31px;
+    }
+
+    .difficulty {
+
+        margin-top: 3px;
+    }
+
+    .bottom {
+
+        margin-top: 8px;
+    }
+}
+
+
+/* =========================================================
+   EXTRA ANIMATION
+========================================================= */
+
+.level-card {
+
+    animation:
+        cardAppear .55s ease both;
+}
+
+.level-card:nth-child(1) {
+    animation-delay: .05s;
+}
+
+.level-card:nth-child(2) {
+    animation-delay: .10s;
+}
+
+.level-card:nth-child(3) {
+    animation-delay: .15s;
+}
+
+.level-card:nth-child(4) {
+    animation-delay: .20s;
+}
+
+.level-card:nth-child(5) {
+    animation-delay: .25s;
+}
+
+.level-card:nth-child(6) {
+    animation-delay: .30s;
+}
+
+.level-card:nth-child(7) {
+    animation-delay: .35s;
+}
+
+.level-card:nth-child(8) {
+    animation-delay: .40s;
+}
+
+.level-card:nth-child(9) {
+    animation-delay: .45s;
+}
+
+.level-card:nth-child(10) {
+    animation-delay: .50s;
+}
+
+
+@keyframes cardAppear {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.85);
+    }
+
+    70% {
+
+        transform:
+            translateY(-4px)
+            scale(1.02);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   TOUCH DEVICE
+========================================================= */
+
+@media (hover: none) {
+
+    .level-card:hover {
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+    .level-card:hover::before {
+
+        left: -120px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<main class="game-screen">
+
+
+    <!-- =====================================================
+         BACKGROUND
+    ====================================================== -->
+
+    <div class="blob one"></div>
+
+    <div class="blob two"></div>
+
+    <div class="blob three"></div>
+
+
+    <!-- =====================================================
+         NATURAL DECORATIONS
+    ====================================================== -->
+
+    <div class="leaf one">
+        🌿
+    </div>
+
+    <div class="leaf two">
+        🍃
+    </div>
+
+    <div class="leaf three">
+        🌱
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+        <div class="title">
+
+            <span class="title-icon">
+                🧩
+            </span>
+
+            <span>
+                D'LAS JIGSAW
+            </span>
+
+        </div>
+
+
+        <div class="subtitle">
+
+            CHOOSE YOUR PUZZLE
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         LEVELS
+    ====================================================== -->
+
+    <section class="level-area">
+
+        <div class="level-grid">
+
+
+            <!-- ================= PUZZLE 1 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(1)"
+            >
+
+                <div class="level-number">
+                    01
+                </div>
+
+                <div class="level-icon">
+                    🧩
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 1
+                </div>
+
+                <div class="grid-size">
+                    4 × 4
+                </div>
+
+                <div class="difficulty easy">
+                    EASY
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 2 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(2)"
+            >
+
+                <div class="level-number">
+                    02
+                </div>
+
+                <div class="level-icon">
+                    🧩
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 2
+                </div>
+
+                <div class="grid-size">
+                    5 × 5
+                </div>
+
+                <div class="difficulty easy">
+                    EASY
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 3 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(3)"
+            >
+
+                <div class="level-number">
+                    03
+                </div>
+
+                <div class="level-icon">
+                    🧩
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 3
+                </div>
+
+                <div class="grid-size">
+                    6 × 6
+                </div>
+
+                <div class="difficulty medium">
+                    MEDIUM
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 4 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(4)"
+            >
+
+                <div class="level-number">
+                    04
+                </div>
+
+                <div class="level-icon">
+                    🧩
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 4
+                </div>
+
+                <div class="grid-size">
+                    7 × 7
+                </div>
+
+                <div class="difficulty medium">
+                    MEDIUM
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 5 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(5)"
+            >
+
+                <div class="level-number">
+                    05
+                </div>
+
+                <div class="level-icon">
+                    🧩
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 5
+                </div>
+
+                <div class="grid-size">
+                    8 × 8
+                </div>
+
+                <div class="difficulty hard">
+                    HARD
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 6 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(6)"
+            >
+
+                <div class="level-number">
+                    06
+                </div>
+
+                <div class="level-icon">
+                    🧩
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 6
+                </div>
+
+                <div class="grid-size">
+                    9 × 9
+                </div>
+
+                <div class="difficulty hard">
+                    HARD
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 7 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(7)"
+            >
+
+                <div class="level-number">
+                    07
+                </div>
+
+                <div class="level-icon">
+                    🧩
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 7
+                </div>
+
+                <div class="grid-size">
+                    10 × 10
+                </div>
+
+                <div class="difficulty very-hard">
+                    VERY HARD
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 8 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(8)"
+            >
+
+                <div class="level-number">
+                    08
+                </div>
+
+                <div class="level-icon">
+                    🧩
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 8
+                </div>
+
+                <div class="grid-size">
+                    11 × 11
+                </div>
+
+                <div class="difficulty very-hard">
+                    VERY HARD
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 9 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(9)"
+            >
+
+                <div class="level-number">
+                    09
+                </div>
+
+                <div class="level-icon">
+                    🔥
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 9
+                </div>
+
+                <div class="grid-size">
+                    12 × 12
+                </div>
+
+                <div class="difficulty extreme">
+                    EXTREME
+                </div>
+
+            </div>
+
+
+            <!-- ================= PUZZLE 10 ================= -->
+
+            <div
+                class="level-card"
+                onclick="openPuzzle(10)"
+            >
+
+                <div class="level-number">
+                    10
+                </div>
+
+                <div class="level-icon">
+                    👑
+                </div>
+
+                <div class="level-title">
+                    PUZZLE 10
+                </div>
+
+                <div class="grid-size">
+                    13 × 13
+                </div>
+
+                <div class="difficulty master">
+                    MASTER
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         HOME BUTTON
+    ====================================================== -->
+
+    <div class="bottom">
+
+        <button
+            class="home-button"
+            onclick="goHome()"
+        >
+
+            🏠 BACK TO HOME
+
+        </button>
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   OPEN PUZZLE
+========================================================= */
+
+function openPuzzle(level) {
+
+    /*
+     * The player can select ANY puzzle.
+     * There is no level lock.
+     */
+
+    window.location.href =
+        "puzzle" + level + ".html";
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function goHome() {
+
+    window.location.href =
+        "index.html";
+}
+
+
+/* =========================================================
+   KEYBOARD SUPPORT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        /*
+         * Press 1-9 to open a puzzle.
+         */
+
+        if (
+            event.key >= "1" &&
+            event.key <= "9"
+        ) {
+
+            openPuzzle(
+                Number(event.key)
+            );
+        }
+
+
+        /*
+         * Press 0 for Puzzle 10.
+         */
+
+        if (event.key === "0") {
+
+            openPuzzle(10);
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

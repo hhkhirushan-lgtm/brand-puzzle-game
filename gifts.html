@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Choose Your Gift - D'Las</title>
+
+
+<style>
+
+/* =========================================
+   BASIC
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+body{
+
+    font-family:
+        "Arial Rounded MT Bold",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 20% 15%,
+            rgba(211,178,92,.20),
+            transparent 25%
+        ),
+
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(211,178,92,.15),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            #082b24,
+            #0d4436 45%,
+            #061d19
+        );
+
+    color:white;
+}
+
+
+/* =========================================
+   BACKGROUND DECORATIONS
+========================================= */
+
+.game-screen{
+
+    position:relative;
+
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    padding:18px;
+
+    overflow:hidden;
+}
+
+
+.game-screen::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:420px;
+    height:420px;
+
+    border-radius:50%;
+
+    top:-180px;
+    left:-160px;
+
+    background:
+        rgba(215,180,85,.08);
+
+    pointer-events:none;
+}
+
+
+.game-screen::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    right:-250px;
+    bottom:-250px;
+
+    background:
+        rgba(215,180,85,.08);
+
+    pointer-events:none;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.title{
+
+    position:relative;
+
+    z-index:5;
+
+    text-align:center;
+
+    font-size:
+        clamp(
+            28px,
+            4vw,
+            52px
+        );
+
+    font-weight:900;
+
+    color:#f4d47a;
+
+    letter-spacing:1px;
+
+    text-shadow:
+        0 3px 0 #593f13,
+        0 6px 15px rgba(0,0,0,.45);
+
+    margin-bottom:4px;
+}
+
+
+.subtitle{
+
+    position:relative;
+
+    z-index:5;
+
+    text-align:center;
+
+    font-size:
+        clamp(
+            16px,
+            2vw,
+            24px
+        );
+
+    font-weight:bold;
+
+    color:#fff;
+
+    margin-bottom:9px;
+
+    text-shadow:
+        0 2px 5px rgba(0,0,0,.4);
+}
+
+
+/* =========================================
+   CHANCES
+========================================= */
+
+.chances{
+
+    position:relative;
+
+    z-index:5;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8e3a0,
+            #c99d3e
+        );
+
+    color:#12372e;
+
+    padding:
+        7px 20px;
+
+    border-radius:18px;
+
+    border:
+        2px solid
+        #fff1b8;
+
+    font-size:
+        clamp(
+            15px,
+            2vw,
+            21px
+        );
+
+    font-weight:900;
+
+    box-shadow:
+        0 5px 0 #71521d,
+        0 10px 20px rgba(0,0,0,.35);
+
+    margin-bottom:10px;
+}
+
+#chanceCount{
+
+    color:#8b1e1e;
+
+    font-size:1.1em;
+}
+
+
+/* =========================================
+   GIFT AREA
+========================================= */
+
+.gift-area{
+
+    position:relative;
+
+    z-index:5;
+
+    flex:1;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+
+/* =========================================
+   GIFT GRID
+========================================= */
+
+.gift-grid{
+
+    width:
+        min(
+            68vw,
+            600px
+        );
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        clamp(
+            10px,
+            1.8vw,
+            20px
+        );
+}
+
+
+/* =========================================
+   GIFT
+========================================= */
+
+.gift{
+
+    position:relative;
+
+    aspect-ratio:1/1;
+
+    cursor:pointer;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:
+        transform .25s ease,
+        opacity .25s ease,
+        filter .25s ease;
+
+    touch-action:manipulation;
+}
+
+
+/* =========================================
+   HOVER
+========================================= */
+
+.gift:hover{
+
+    transform:
+        translateY(-8px)
+        scale(1.05);
+}
+
+
+/* =========================================
+   BOX BODY
+========================================= */
+
+.box-body{
+
+    position:absolute;
+
+    width:72%;
+    height:54%;
+
+    bottom:12%;
+
+    border-radius:8px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #06251f 0%,
+            #0b3a2e 20%,
+            #125441 50%,
+            #0a382c 80%,
+            #041c17 100%
+        );
+
+    border:
+        3px solid
+        rgba(220,190,105,.8);
+
+    box-shadow:
+
+        inset 8px 0 15px
+            rgba(0,0,0,.25),
+
+        inset -8px 0 15px
+            rgba(255,255,255,.05),
+
+        0 12px 20px
+            rgba(0,0,0,.5);
+
+    overflow:hidden;
+
+    z-index:2;
+}
+
+
+/* =========================================
+   BOX FRONT HIGHLIGHT
+========================================= */
+
+.box-body::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:12%;
+
+    width:22%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.08),
+            transparent
+        );
+
+    transform:
+        skewX(-15deg);
+}
+
+
+/* =========================================
+   BOX LID
+========================================= */
+
+.box-lid{
+
+    position:absolute;
+
+    width:78%;
+    height:20%;
+
+    top:25%;
+
+    border-radius:7px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #071f1a,
+            #104b3b 30%,
+            #16604a 50%,
+            #0d4637 70%,
+            #051c17
+        );
+
+    border:
+        3px solid
+        rgba(229,197,112,.9);
+
+    box-shadow:
+
+        inset 0 4px 8px
+            rgba(255,255,255,.08),
+
+        0 7px 10px
+            rgba(0,0,0,.4);
+
+    z-index:4;
+
+    transition:
+        transform .7s ease,
+        box-shadow .7s ease;
+}
+
+
+/* =========================================
+   LOGO ON BOX
+========================================= */
+
+.box-logo{
+
+    position:absolute;
+
+    z-index:6;
+
+    top:29%;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:35%;
+
+    height:25%;
+
+    object-fit:contain;
+
+    pointer-events:none;
+
+    filter:
+        drop-shadow(
+            0 2px 2px
+            rgba(0,0,0,.6)
+        );
+
+    transition:
+        transform .25s ease;
+}
+
+
+/* =========================================
+   GOLD EDGE
+========================================= */
+
+.gift::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:68%;
+
+    height:5px;
+
+    bottom:9%;
+
+    left:16%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #e3bf68,
+            #fff0a8,
+            #e3bf68,
+            transparent
+        );
+
+    border-radius:50%;
+
+    opacity:.8;
+
+    filter:
+        blur(.3px);
+
+    z-index:7;
+}
+
+
+/* =========================================
+   HOVER EFFECT
+========================================= */
+
+.gift:hover .box-body,
+.gift:hover .box-lid{
+
+    filter:
+        brightness(1.18);
+}
+
+
+.gift:hover .box-logo{
+
+    transform:
+        translateX(-50%)
+        scale(1.08);
+}
+
+
+/* =========================================
+   SELECTED BOX
+========================================= */
+
+.gift.selected{
+
+    position:fixed;
+
+    left:50%;
+    top:50%;
+
+    width:
+        min(
+            60vw,
+            420px
+        );
+
+    height:
+        min(
+            60vw,
+            420px
+        );
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        )
+        scale(1.2);
+
+    z-index:1000;
+
+    cursor:default;
+
+    animation:
+        selectedBox .7s ease;
+}
+
+
+@keyframes selectedBox{
+
+    0%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(.4)
+            rotate(-10deg);
+
+    }
+
+    60%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.3)
+            rotate(5deg);
+
+    }
+
+    100%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.2)
+            rotate(0);
+
+    }
+}
+
+
+/* =========================================
+   DISABLE OTHER BOXES
+========================================= */
+
+.gift-area.disabled
+.gift:not(.selected){
+
+    opacity:.15;
+
+    filter:
+        grayscale(1);
+
+    pointer-events:none;
+}
+
+
+/* =========================================
+   USED BOX
+========================================= */
+
+.gift.used{
+
+    opacity:.12;
+
+    filter:
+        grayscale(1);
+
+    pointer-events:none;
+}
+
+
+/* =========================================
+   OPEN ANIMATION
+========================================= */
+
+.gift.opening{
+
+    animation:
+        shakeBox .6s ease;
+}
+
+
+@keyframes shakeBox{
+
+    0%,100%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.2)
+            rotate(0);
+
+    }
+
+    20%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.2)
+            rotate(-7deg);
+
+    }
+
+    40%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.2)
+            rotate(7deg);
+
+    }
+
+    60%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.2)
+            rotate(-5deg);
+
+    }
+
+    80%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.2)
+            rotate(5deg);
+
+    }
+}
+
+
+/* =========================================
+   OPEN LID
+========================================= */
+
+.gift.opened .box-lid{
+
+    transform:
+        translateY(-75px)
+        rotate(-8deg);
+
+    box-shadow:
+        0 18px 20px
+        rgba(0,0,0,.45);
+}
+
+
+/* =========================================
+   PRODUCT REVEAL
+========================================= */
+
+.product-reveal{
+
+    display:none;
+
+    margin:
+        15px auto 20px;
+
+    text-align:center;
+}
+
+.product-reveal.show{
+
+    display:block;
+}
+
+
+.product-image{
+
+    width:
+        min(
+            180px,
+            45vw
+        );
+
+    height:
+        180px;
+
+    object-fit:contain;
+
+    border-radius:20px;
+
+    background:#f5f5f5;
+
+    padding:10px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,0,0,.3);
+}
+
+
+.product-name{
+
+    margin-top:12px;
+
+    font-size:24px;
+
+    font-weight:900;
+
+    color:#174437;
+}
+
+
+/* =========================================
+   RESULT OVERLAY
+========================================= */
+
+.result-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(
+            3,
+            25,
+            20,
+            .90
+        );
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:2000;
+}
+
+
+.result-overlay.show{
+
+    display:flex;
+}
+
+
+/* =========================================
+   RESULT BOX
+========================================= */
+
+.result-box{
+
+    position:relative;
+
+    width:
+        min(
+            90%,
+            550px
+        );
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f8f4e8
+        );
+
+    color:#164437;
+
+    text-align:center;
+
+    padding:
+        35px 25px;
+
+    border-radius:30px;
+
+    border:
+        6px solid #d4ae55;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.6);
+
+    animation:
+        resultPop .5s ease;
+}
+
+
+@keyframes resultPop{
+
+    0%{
+
+        transform:scale(.4);
+
+        opacity:0;
+    }
+
+    70%{
+
+        transform:scale(1.08);
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+    }
+}
+
+
+.result-icon{
+
+    font-size:80px;
+
+    margin-bottom:5px;
+}
+
+
+.result-title{
+
+    font-size:40px;
+
+    font-weight:900;
+
+    margin-bottom:5px;
+
+    color:#14513e;
+}
+
+
+.result-message{
+
+    font-size:20px;
+
+    margin-bottom:10px;
+}
+
+
+/* =========================================
+   RESULT BUTTONS
+========================================= */
+
+.result-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+
+.result-button{
+
+    border:none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #cda84d,
+            #f0d681
+        );
+
+    color:#163b30;
+
+    padding:
+        14px 28px;
+
+    border-radius:15px;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 0 #806226;
+
+    transition:
+        transform .15s ease;
+}
+
+
+.result-button:hover{
+
+    transform:
+        translateY(-3px);
+}
+
+
+/* =========================================
+   CONFETTI
+========================================= */
+
+.confetti{
+
+    position:fixed;
+
+    top:-30px;
+
+    z-index:3000;
+
+    animation:
+        fall 3s linear forwards;
+}
+
+
+@keyframes fall{
+
+    0%{
+
+        transform:
+            translateY(0)
+            rotate(0);
+
+    }
+
+    100%{
+
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+    }
+}
+
+
+/* =========================================
+   BOTTOM
+========================================= */
+
+.bottom{
+
+    position:relative;
+
+    z-index:5;
+
+    padding-top:10px;
+}
+
+
+.home-button{
+
+    border:
+        2px solid
+        #d8b45b;
+
+    background:
+
+        rgba(
+            255,
+            255,
+            255,
+            .95
+        );
+
+    color:#174437;
+
+    padding:
+        11px 25px;
+
+    border-radius:15px;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 0
+        rgba(0,0,0,.35);
+
+    transition:
+        transform .15s ease;
+}
+
+
+.home-button:hover{
+
+    transform:
+        translateY(-3px);
+}
+
+
+/* =========================================
+   TV
+========================================= */
+
+@media(min-width:1600px){
+
+    .gift-grid{
+
+        width:
+            min(
+                75vw,
+                600px
+            );
+
+        gap:24px;
+    }
+
+    .home-button{
+
+        font-size:22px;
+
+        padding:
+            14px 30px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:700px){
+
+    .game-screen{
+
+        padding:10px;
+    }
+
+    .title{
+
+        font-size:28px;
+    }
+
+    .subtitle{
+
+        font-size:15px;
+
+        margin-bottom:6px;
+    }
+
+    .chances{
+
+        padding:
+            6px 14px;
+
+        font-size:15px;
+    }
+
+    .gift-grid{
+
+        width:88vw;
+
+        gap:8px;
+    }
+
+    .home-button{
+
+        font-size:14px;
+
+        padding:
+            9px 18px;
+    }
+
+    .product-image{
+
+        width:140px;
+
+        height:140px;
+    }
+
+    .product-name{
+
+        font-size:20px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL HEIGHT SCREENS
+========================================= */
+
+@media(max-height:650px){
+
+    .game-screen{
+
+        padding-top:8px;
+        padding-bottom:8px;
+    }
+
+    .title{
+
+        font-size:26px;
+    }
+
+    .subtitle{
+
+        font-size:14px;
+    }
+
+    .chances{
+
+        padding:5px 14px;
+
+        margin-bottom:5px;
+    }
+
+    .gift-grid{
+
+        width:
+            min(
+                60vh,
+                540px
+            );
+
+        gap:10px;
+    }
+
+    .bottom{
+
+        padding-top:5px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<main class="game-screen">
+
+
+    <!-- =====================================
+         TITLE
+    ====================================== -->
+
+    <div class="title">
+
+        🎁 CHOOSE YOUR GIFT
+
+    </div>
+
+
+    <div class="subtitle">
+
+        Pick one mystery box!
+
+    </div>
+
+
+    <!-- =====================================
+         CHANCES
+    ====================================== -->
+
+    <div class="chances">
+
+        🎯 CHANCES LEFT:
+
+        <span id="chanceCount">
+            2
+        </span>
+
+    </div>
+
+
+    <!-- =====================================
+         GIFT AREA
+    ====================================== -->
+
+    <div
+        class="gift-area"
+        id="giftArea"
+    >
+
+        <div
+            class="gift-grid"
+            id="giftGrid"
+        ></div>
+
+    </div>
+
+
+    <!-- =====================================
+         HOME
+    ====================================== -->
+
+    <div class="bottom">
+
+        <button
+            class="home-button"
+            onclick="goHome()"
+        >
+
+            🏠 BACK TO HOME
+
+        </button>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================
+     RESULT
+========================================= -->
+
+<div
+    class="result-overlay"
+    id="resultOverlay"
+>
+
+    <div class="result-box">
+
+
+        <div
+            class="result-icon"
+            id="resultIcon"
+        >
+
+            🎉
+
+        </div>
+
+
+        <div
+            class="result-title"
+            id="resultTitle"
+        >
+
+            CONGRATULATIONS!
+
+        </div>
+
+
+        <div
+            class="result-message"
+            id="resultMessage"
+        >
+
+            You won a gift!
+
+        </div>
+
+
+        <!-- PRODUCT -->
+
+        <div
+            class="product-reveal"
+            id="productReveal"
+        >
+
+            <img
+                class="product-image"
+                id="productImage"
+                src=""
+                alt="Gift"
+            >
+
+
+            <div
+                class="product-name"
+                id="productName"
+            ></div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div
+            class="result-buttons"
+            id="resultButtons"
+        ></div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =================================================
+   SOUND SYSTEM
+================================================= */
+
+const clickSound =
+    new Audio(
+        "sounds/click.mp3"
+    );
+
+const winnerSound =
+    new Audio(
+        "sounds/winner.mp3"
+    );
+
+const loserSound =
+    new Audio(
+        "sounds/loser.mp3"
+    );
+
+
+/*
+ * Volume settings.
+ */
+
+clickSound.volume = 0.7;
+
+winnerSound.volume = 0.8;
+
+loserSound.volume = 0.8;
+
+
+/* =================================================
+   PLAY CLICK SOUND
+================================================= */
+
+function playClickSound(){
+
+    clickSound.currentTime = 0;
+
+    clickSound.play().catch(
+        function(){
+            /*
+             * Browser may block
+             * sound until user interaction.
+             * The box click itself is a
+             * user interaction, so normally
+             * this will play.
+             */
+        }
+    );
+
+}
+
+
+/* =================================================
+   PLAY WINNER SOUND
+================================================= */
+
+function playWinnerSound(){
+
+    winnerSound.currentTime = 0;
+
+    winnerSound.play().catch(
+        function(){}
+    );
+
+}
+
+
+/* =================================================
+   PLAY LOSER SOUND
+================================================= */
+
+function playLoserSound(){
+
+    loserSound.currentTime = 0;
+
+    loserSound.play().catch(
+        function(){}
+    );
+
+}
+
+
+/* =================================================
+   PRODUCT GIFT LIST
+================================================= */
+
+const giftProducts = [
+
+    {
+        image:
+            "gifts/gift1.png",
+
+        name:
+            "D'las Lavender Soap"
+    },
+
+    {
+        image:
+            "gifts/gift2.png",
+
+        name:
+            "D'las Peppermint Lip Balm"
+    },
+
+    {
+        image:
+            "gifts/gift3.png",
+
+        name:
+            "D'las Wild Rose Soap"
+    },
+
+    {
+        image:
+            "gifts/gift4.png",
+
+        name:
+            "D'las Strawberry Lip Balm"
+    },
+
+    {
+        image:
+            "gifts/gift5.png",
+
+        name:
+            "D'las Pomegranate Soap"
+    }
+
+];
+
+
+/* =================================================
+   GAME VARIABLES
+================================================= */
+
+let chances =
+    2;
+
+let gameFinished =
+    false;
+
+let winningGift =
+    null;
+
+let winningBoxIndex =
+    null;
+
+
+/* =================================================
+   ELEMENTS
+================================================= */
+
+const giftGrid =
+    document.getElementById(
+        "giftGrid"
+    );
+
+const giftArea =
+    document.getElementById(
+        "giftArea"
+    );
+
+const chanceCount =
+    document.getElementById(
+        "chanceCount"
+    );
+
+const resultOverlay =
+    document.getElementById(
+        "resultOverlay"
+    );
+
+const resultIcon =
+    document.getElementById(
+        "resultIcon"
+    );
+
+const resultTitle =
+    document.getElementById(
+        "resultTitle"
+    );
+
+const resultMessage =
+    document.getElementById(
+        "resultMessage"
+    );
+
+const resultButtons =
+    document.getElementById(
+        "resultButtons"
+    );
+
+const productReveal =
+    document.getElementById(
+        "productReveal"
+    );
+
+const productImage =
+    document.getElementById(
+        "productImage"
+    );
+
+const productName =
+    document.getElementById(
+        "productName"
+    );
+
+
+/* =================================================
+   RANDOM GAME SETUP
+================================================= */
+
+function setupRandomGame(){
+
+    const randomProductIndex =
+        Math.floor(
+            Math.random() *
+            giftProducts.length
+        );
+
+
+    winningGift =
+        giftProducts[
+            randomProductIndex
+        ];
+
+
+    winningBoxIndex =
+        Math.floor(
+            Math.random() *
+            9
+        );
+
+
+    console.log(
+        "Winning box:",
+        winningBoxIndex + 1
+    );
+
+
+    console.log(
+        "Winning gift:",
+        winningGift.name
+    );
+
+}
+
+
+/* =================================================
+   CREATE GIFT BOXES
+================================================= */
+
+function createGifts(){
+
+    giftGrid.innerHTML =
+        "";
+
+
+    for(
+        let index = 0;
+        index < 9;
+        index++
+    ){
+
+        const box =
+            document.createElement(
+                "div"
+            );
+
+
+        box.className =
+            "gift";
+
+
+        box.dataset.index =
+            index;
+
+
+        box.dataset.used =
+            "false";
+
+
+        box.innerHTML = `
+
+            <div
+                class="box-lid"
+            ></div>
+
+
+            <div
+                class="box-body"
+            ></div>
+
+
+            <img
+                class="box-logo"
+                src="images/logo.png"
+                alt="D'Las"
+            >
+
+        `;
+
+
+        box.addEventListener(
+            "click",
+            function(){
+
+                selectGift(
+                    box,
+                    index
+                );
+
+            }
+        );
+
+
+        giftGrid.appendChild(
+            box
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   SELECT BOX
+================================================= */
+
+function selectGift(
+    box,
+    boxIndex
+){
+
+    /*
+     * Don't allow selection after
+     * the game is finished.
+     */
+
+    if(
+        gameFinished
+    ){
+
+        return;
+
+    }
+
+
+    /*
+     * Don't allow selection if
+     * there are no chances.
+     */
+
+    if(
+        chances <= 0
+    ){
+
+        return;
+
+    }
+
+
+    /*
+     * Don't allow a used box
+     * to be selected again.
+     */
+
+    if(
+        box.dataset.used ===
+        "true"
+    ){
+
+        return;
+
+    }
+
+
+    /*
+     * PLAY BOX CLICK SOUND
+     *
+     * This happens immediately
+     * when the player selects
+     * a valid box.
+     */
+
+    playClickSound();
+
+
+    /*
+     * Remove one chance.
+     */
+
+    chances--;
+
+
+    chanceCount.textContent =
+        chances;
+
+
+    /*
+     * Mark box as used.
+     */
+
+    box.dataset.used =
+        "true";
+
+
+    /*
+     * Disable the other boxes
+     * while this box is opening.
+     */
+
+    giftArea.classList.add(
+        "disabled"
+    );
+
+
+    /*
+     * Move selected box
+     * to the center.
+     */
+
+    box.classList.add(
+        "selected"
+    );
+
+
+    /*
+     * Start box opening.
+     */
+
+    setTimeout(
+        function(){
+
+            box.classList.add(
+                "opening"
+            );
+
+
+            setTimeout(
+                function(){
+
+                    box.classList.remove(
+                        "opening"
+                    );
+
+
+                    box.classList.add(
+                        "opened"
+                    );
+
+
+                    /*
+                     * Wait for lid animation
+                     * before showing result.
+                     */
+
+                    setTimeout(
+                        function(){
+
+                            /*
+                             * WIN
+                             */
+
+                            if(
+                                boxIndex ===
+                                winningBoxIndex
+                            ){
+
+                                gameFinished =
+                                    true;
+
+
+                                showWinResult();
+
+                            }
+
+
+                            /*
+                             * WRONG BOX
+                             */
+
+                            else{
+
+                                if(
+                                    chances > 0
+                                ){
+
+                                    showTryAgain(
+                                        box
+                                    );
+
+                                }
+
+                                else{
+
+                                    gameFinished =
+                                        true;
+
+
+                                    showLoseResult();
+
+                                }
+
+                            }
+
+                        },
+                        700
+                    );
+
+                },
+                650
+            );
+
+        },
+        700
+    );
+
+}
+
+
+/* =================================================
+   TRY AGAIN
+================================================= */
+
+function showTryAgain(
+    box
+){
+
+    resultIcon.textContent =
+        "😢";
+
+
+    resultTitle.textContent =
+        "EMPTY BOX!";
+
+
+    resultMessage.textContent =
+        "You have 1 chance left!";
+
+
+    productReveal.classList.remove(
+        "show"
+    );
+
+
+    resultButtons.innerHTML = `
+
+        <button
+            class="result-button"
+            onclick="continueGame()"
+        >
+
+            🎁 TRY ANOTHER BOX
+
+        </button>
+
+    `;
+
+
+    resultOverlay.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =================================================
+   CONTINUE GAME
+================================================= */
+
+function continueGame(){
+
+    resultOverlay.classList.remove(
+        "show"
+    );
+
+
+    const usedBox =
+        document.querySelector(
+            '.gift[data-used="true"].selected'
+        );
+
+
+    if(
+        usedBox
+    ){
+
+        usedBox.classList.remove(
+            "selected"
+        );
+
+
+        usedBox.classList.remove(
+            "opened"
+        );
+
+
+        usedBox.classList.add(
+            "used"
+        );
+
+    }
+
+
+    giftArea.classList.remove(
+        "disabled"
+    );
+
+
+    document
+        .querySelectorAll(
+            '.gift[data-used="true"]'
+        )
+        .forEach(
+            function(box){
+
+                box.style.pointerEvents =
+                    "none";
+
+                box.classList.add(
+                    "used"
+                );
+
+            }
+        );
+
+}
+
+
+/* =================================================
+   WIN RESULT
+================================================= */
+
+function showWinResult(){
+
+    /*
+     * PLAY WINNER SOUND
+     */
+
+    playWinnerSound();
+
+
+    resultIcon.textContent =
+        "🎉";
+
+
+    resultTitle.textContent =
+        "CONGRATULATIONS!";
+
+
+    resultMessage.textContent =
+        "You won a special D'Las gift!";
+
+
+    productImage.src =
+        winningGift.image;
+
+
+    productName.textContent =
+        winningGift.name;
+
+
+    productReveal.classList.add(
+        "show"
+    );
+
+
+    resultButtons.innerHTML = `
+
+        <button
+            class="result-button"
+            onclick="goHome()"
+        >
+
+            🏠 BACK TO HOME
+
+        </button>
+
+    `;
+
+
+    resultOverlay.classList.add(
+        "show"
+    );
+
+
+    createConfetti();
+
+}
+
+
+/* =================================================
+   LOSE RESULT
+================================================= */
+
+function showLoseResult(){
+
+    /*
+     * PLAY LOSER SOUND
+     */
+
+    playLoserSound();
+
+
+    resultIcon.textContent =
+        "😢";
+
+
+    resultTitle.textContent =
+        "SORRY!";
+
+
+    resultMessage.textContent =
+        "You used both chances. Better luck next time!";
+
+
+    productReveal.classList.remove(
+        "show"
+    );
+
+
+    resultButtons.innerHTML = `
+
+        <button
+            class="result-button"
+            onclick="goHome()"
+        >
+
+            🏠 BACK TO HOME
+
+        </button>
+
+    `;
+
+
+    resultOverlay.classList.add(
+        "show"
+    );
+
+}
+
+
+/* =================================================
+   CONFETTI
+================================================= */
+
+function createConfetti(){
+
+    const symbols = [
+
+        "🎉",
+        "⭐",
+        "✨",
+        "🎊",
+        "💚",
+        "🎁"
+
+    ];
+
+
+    for(
+        let i = 0;
+        i < 45;
+        i++
+    ){
+
+        const confetti =
+            document.createElement(
+                "div"
+            );
+
+
+        confetti.className =
+            "confetti";
+
+
+        confetti.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+
+        confetti.style.left =
+            Math.random() *
+            100 +
+            "vw";
+
+
+        confetti.style.animationDelay =
+            Math.random() *
+            1.5 +
+            "s";
+
+
+        confetti.style.fontSize =
+            (
+                12 +
+                Math.random() *
+                20
+            ) +
+            "px";
+
+
+        document.body.appendChild(
+            confetti
+        );
+
+
+        setTimeout(
+            function(){
+
+                confetti.remove();
+
+            },
+            4500
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   HOME
+================================================= */
+
+function goHome(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =================================================
+   START GAME
+================================================= */
+
+setupRandomGame();
+
+createGifts();
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>D'las Game Show</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family:
+        "Arial Rounded MT Bold",
+        "Trebuchet MS",
+        Arial,
+        sans-serif;
+
+    background: #f5f0df;
+}
+
+
+/* =====================================================
+   MAIN WELCOME SCREEN
+===================================================== */
+
+.welcome-screen {
+
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 35%,
+            rgba(255,255,255,.95) 0%,
+            rgba(255,255,255,.65) 18%,
+            transparent 45%
+        ),
+
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(126,166,83,.35),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(220,181,74,.30),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #edf3df,
+            #f8f4df,
+            #e6efd8
+        );
+}
+
+
+/* =====================================================
+   SOFT BACKGROUND PATTERN
+===================================================== */
+
+.welcome-screen::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: .16;
+
+    background-image:
+
+        radial-gradient(
+            circle,
+            #7b9555 2px,
+            transparent 2px
+        );
+
+    background-size: 38px 38px;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   LARGE ORGANIC BLOBS
+===================================================== */
+
+.blob {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(1px);
+
+    opacity: .55;
+
+    animation:
+        blobFloat 7s ease-in-out infinite;
+}
+
+.blob.one {
+
+    width: 330px;
+    height: 330px;
+
+    left: -150px;
+    top: -110px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #9fbd72,
+            #d5e5aa
+        );
+}
+
+.blob.two {
+
+    width: 390px;
+    height: 390px;
+
+    right: -180px;
+    bottom: -170px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d8c274,
+            #f1dfa4
+        );
+
+    animation-delay: 1.5s;
+}
+
+.blob.three {
+
+    width: 210px;
+    height: 210px;
+
+    right: 4%;
+    top: 12%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d8e8b7,
+            #a8c67c
+        );
+
+    animation-delay: 3s;
+}
+
+@keyframes blobFloat {
+
+    0%,100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform:
+            translateY(-18px)
+            rotate(5deg);
+    }
+}
+
+
+/* =====================================================
+   LEAF DECORATIONS
+===================================================== */
+
+.leaf {
+
+    position: absolute;
+
+    font-size: 55px;
+
+    opacity: .72;
+
+    filter:
+        drop-shadow(
+            2px 4px 3px rgba(0,0,0,.12)
+        );
+
+    animation:
+        leafFloat 5s ease-in-out infinite;
+}
+
+.leaf.one {
+
+    left: 7%;
+    top: 18%;
+
+    transform: rotate(-25deg);
+}
+
+.leaf.two {
+
+    right: 7%;
+    bottom: 18%;
+
+    transform: rotate(25deg);
+
+    animation-delay: 1.5s;
+}
+
+.leaf.three {
+
+    left: 17%;
+    bottom: 8%;
+
+    font-size: 40px;
+
+    animation-delay: 2.5s;
+}
+
+@keyframes leafFloat {
+
+    0%,100% {
+        transform:
+            translateY(0)
+            rotate(-10deg);
+    }
+
+    50% {
+        transform:
+            translateY(-12px)
+            rotate(8deg);
+    }
+}
+
+
+/* =====================================================
+   PUZZLE PIECES
+===================================================== */
+
+.puzzle-piece {
+
+    position: absolute;
+
+    font-size: 65px;
+
+    opacity: .65;
+
+    filter:
+        drop-shadow(
+            3px 5px 3px rgba(0,0,0,.14)
+        );
+
+    animation:
+        puzzleFloat 6s ease-in-out infinite;
+}
+
+.piece-one {
+
+    left: 12%;
+    top: 38%;
+
+    transform: rotate(-20deg);
+}
+
+.piece-two {
+
+    right: 13%;
+    top: 35%;
+
+    transform: rotate(18deg);
+
+    animation-delay: 1s;
+}
+
+.piece-three {
+
+    left: 23%;
+    bottom: 18%;
+
+    font-size: 45px;
+
+    transform: rotate(12deg);
+
+    animation-delay: 2s;
+}
+
+.piece-four {
+
+    right: 22%;
+    bottom: 14%;
+
+    font-size: 45px;
+
+    transform: rotate(-15deg);
+
+    animation-delay: 3s;
+}
+
+@keyframes puzzleFloat {
+
+    0%,100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50% {
+
+        transform:
+            translateY(-18px)
+            rotate(12deg);
+    }
+}
+
+
+/* =====================================================
+   SPARKLES
+===================================================== */
+
+.sparkle {
+
+    position: absolute;
+
+    color: #c5a642;
+
+    font-size: 25px;
+
+    animation:
+        sparkleAnimation 2.5s ease-in-out infinite;
+}
+
+.sparkle.one {
+
+    top: 16%;
+    left: 30%;
+}
+
+.sparkle.two {
+
+    top: 25%;
+    right: 29%;
+
+    animation-delay: .5s;
+}
+
+.sparkle.three {
+
+    bottom: 27%;
+    left: 32%;
+
+    animation-delay: 1s;
+}
+
+.sparkle.four {
+
+    bottom: 18%;
+    right: 31%;
+
+    animation-delay: 1.5s;
+}
+
+@keyframes sparkleAnimation {
+
+    0%,100% {
+
+        opacity: .3;
+
+        transform:
+            scale(.8)
+            rotate(0deg);
+    }
+
+    50% {
+
+        opacity: 1;
+
+        transform:
+            scale(1.5)
+            rotate(20deg);
+    }
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+
+.content {
+
+    position: relative;
+
+    z-index: 20;
+
+    width: min(92%, 1100px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+
+/* =====================================================
+   BRAND LOGO
+===================================================== */
+
+.logo-container {
+
+    width: 155px;
+    height: 155px;
+
+    padding: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255,255,255,.96);
+
+    border-radius: 38px;
+
+    border:
+        5px solid
+        #d1b45b;
+
+    box-shadow:
+
+        0 7px 0 #8ca35e,
+
+        0 16px 35px
+        rgba(64,72,42,.22);
+
+    margin-bottom: 25px;
+
+    animation:
+        logoBounce 3.5s ease-in-out infinite;
+}
+
+.logo-container img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    border-radius: 25px;
+}
+
+@keyframes logoBounce {
+
+    0%,100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50% {
+
+        transform:
+            translateY(-8px)
+            rotate(2deg);
+    }
+}
+
+
+/* =====================================================
+   SMALL BRAND LABEL
+===================================================== */
+
+.brand-label {
+
+    margin-bottom: 8px;
+
+    font-size:
+        clamp(
+            15px,
+            1.5vw,
+            22px
+        );
+
+    font-weight: 800;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: #6e7f4c;
+
+    animation:
+        fadeDown .8s ease;
+}
+
+
+/* =====================================================
+   MAIN TITLE
+===================================================== */
+
+.title {
+
+    font-size:
+        clamp(
+            38px,
+            6vw,
+            78px
+        );
+
+    line-height: 1.05;
+
+    font-weight: 900;
+
+    color: #4d6333;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+
+        3px 4px 0 #d7e2bb,
+
+        6px 8px 0
+        rgba(65,75,40,.10);
+
+    margin-bottom: 16px;
+
+    animation:
+        titlePop .8s ease-out;
+}
+
+@keyframes titlePop {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(.65)
+            translateY(20px);
+    }
+
+    70% {
+
+        transform:
+            scale(1.06)
+            translateY(-3px);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+/* =====================================================
+   SUBTITLE CARD
+===================================================== */
+
+.subtitle-card {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    padding:
+        12px 25px;
+
+    margin-bottom: 34px;
+
+    background:
+        rgba(255,255,255,.78);
+
+    border:
+        2px solid
+        rgba(143,159,101,.45);
+
+    border-radius: 50px;
+
+    box-shadow:
+        0 7px 20px
+        rgba(60,70,40,.12);
+
+    backdrop-filter:
+        blur(8px);
+
+    animation:
+        fadeUp .9s ease;
+}
+
+.subtitle {
+
+    font-size:
+        clamp(
+            17px,
+            2vw,
+            27px
+        );
+
+    font-weight: 800;
+
+    color: #637746;
+}
+
+
+/* =====================================================
+   START BUTTON
+===================================================== */
+
+.start-button {
+
+    position: relative;
+
+    min-width: 350px;
+
+    padding:
+        21px 42px;
+
+    border: none;
+
+    border-radius: 24px;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            #d8bd60 0%,
+            #c4a546 100%
+        );
+
+    color: white;
+
+    font-size:
+        clamp(
+            20px,
+            2.4vw,
+            31px
+        );
+
+    font-weight: 900;
+
+    letter-spacing: .5px;
+
+    cursor: pointer;
+
+    border:
+        4px solid
+        rgba(255,255,255,.95);
+
+    box-shadow:
+
+        0 8px 0 #8f7731,
+
+        0 15px 30px
+        rgba(68,65,35,.25);
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+
+    animation:
+        buttonGlow 2.5s infinite;
+}
+
+.start-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 12%;
+    right: 12%;
+    top: 7px;
+
+    height: 7px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.38);
+}
+
+.start-button:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.04);
+
+    box-shadow:
+
+        0 13px 0 #8f7731,
+
+        0 22px 35px
+        rgba(68,65,35,.30);
+}
+
+.start-button:active {
+
+    transform:
+        translateY(6px)
+        scale(.98);
+
+    box-shadow:
+
+        0 3px 0 #8f7731,
+
+        0 8px 15px
+        rgba(68,65,35,.20);
+}
+
+@keyframes buttonGlow {
+
+    0%,100% {
+
+        filter:
+            brightness(1);
+    }
+
+    50% {
+
+        filter:
+            brightness(1.08);
+    }
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer-text {
+
+    margin-top: 22px;
+
+    color: #78875d;
+
+    font-size:
+        clamp(
+            13px,
+            1.2vw,
+            17px
+        );
+
+    font-weight: 700;
+
+    opacity: .85;
+}
+
+
+/* =====================================================
+   LITTLE GAME BADGES
+===================================================== */
+
+.game-badge {
+
+    position: absolute;
+
+    z-index: 5;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        9px 16px;
+
+    background:
+        rgba(255,255,255,.75);
+
+    border:
+        2px solid
+        rgba(140,160,95,.35);
+
+    border-radius: 30px;
+
+    color: #687b4b;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 5px 15px
+        rgba(60,70,40,.10);
+
+    backdrop-filter:
+        blur(6px);
+}
+
+.badge-one {
+
+    left: 5%;
+
+    top: 52%;
+}
+
+.badge-two {
+
+    right: 5%;
+
+    top: 55%;
+}
+
+
+/* =====================================================
+   FADE ANIMATIONS
+===================================================== */
+
+@keyframes fadeDown {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-15px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =====================================================
+   LARGE SMART TV
+===================================================== */
+
+@media (min-width: 1600px) {
+
+    .logo-container {
+
+        width: 190px;
+        height: 190px;
+
+        border-radius: 45px;
+    }
+
+    .brand-label {
+
+        font-size: 23px;
+    }
+
+    .subtitle-card {
+
+        padding:
+            15px 32px;
+
+        margin-bottom: 45px;
+    }
+
+    .start-button {
+
+        min-width: 440px;
+
+        padding:
+            26px 55px;
+
+        border-radius: 28px;
+    }
+
+    .puzzle-piece {
+
+        font-size: 100px;
+    }
+
+    .leaf {
+
+        font-size: 75px;
+    }
+
+    .game-badge {
+
+        font-size: 18px;
+
+        padding:
+            12px 20px;
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .logo-container {
+
+        width: 105px;
+        height: 105px;
+
+        border-radius: 27px;
+
+        border-width: 4px;
+
+        margin-bottom: 16px;
+    }
+
+    .brand-label {
+
+        font-size: 12px;
+
+        letter-spacing: 2px;
+    }
+
+    .title {
+
+        font-size: 34px;
+
+        margin-bottom: 12px;
+    }
+
+    .subtitle-card {
+
+        padding:
+            9px 15px;
+
+        margin-bottom: 25px;
+    }
+
+    .subtitle {
+
+        font-size: 15px;
+    }
+
+    .start-button {
+
+        min-width: 270px;
+
+        padding:
+            17px 24px;
+
+        font-size: 20px;
+
+        border-radius: 20px;
+    }
+
+    .puzzle-piece {
+
+        font-size: 42px;
+    }
+
+    .leaf {
+
+        font-size: 35px;
+    }
+
+    .game-badge {
+
+        display: none;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<main class="welcome-screen">
+
+    <!-- =========================================
+         BACKGROUND
+    ========================================== -->
+
+    <div class="blob one"></div>
+    <div class="blob two"></div>
+    <div class="blob three"></div>
+
+
+    <!-- =========================================
+         NATURAL DECORATIONS
+    ========================================== -->
+
+    <div class="leaf one">🌿</div>
+    <div class="leaf two">🍃</div>
+    <div class="leaf three">🌱</div>
+
+
+    <!-- =========================================
+         PUZZLE DECORATIONS
+    ========================================== -->
+
+    <div class="puzzle-piece piece-one">
+        🧩
+    </div>
+
+    <div class="puzzle-piece piece-two">
+        🧩
+    </div>
+
+    <div class="puzzle-piece piece-three">
+        🧩
+    </div>
+
+    <div class="puzzle-piece piece-four">
+        🧩
+    </div>
+
+
+    <!-- =========================================
+         SPARKLES
+    ========================================== -->
+
+    <div class="sparkle one">✦</div>
+    <div class="sparkle two">✦</div>
+    <div class="sparkle three">✧</div>
+    <div class="sparkle four">✦</div>
+
+
+    <!-- =========================================
+         SMALL GAME BADGES
+    ========================================== -->
+
+    <div class="game-badge badge-one">
+        🧩 4 × 4 → 6 × 6 CHALLENGE
+    </div>
+
+    <div class="game-badge badge-two">
+        🎁 WIN A SURPRISE
+    </div>
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <section class="content">
+
+
+        <!-- BRAND LOGO -->
+
+        <div class="logo-container">
+
+            <img
+                src="images/logo.png"
+                alt="D'las Logo"
+            >
+
+        </div>
+
+
+        <!-- BRAND LABEL -->
+
+        <div class="brand-label">
+            D'LAS BEAUTY CARE
+        </div>
+
+
+        <!-- GAME TITLE -->
+
+        <h1 class="title">
+            WELCOME TO<br>
+            THE GAME SHOW
+        </h1>
+
+
+        <!-- SUBTITLE -->
+
+        <div class="subtitle-card">
+
+            <span>🧩</span>
+
+            <p class="subtitle">
+                Solve the Puzzle & Win a Surprise!
+            </p>
+
+            <span>🎁</span>
+
+        </div>
+
+
+        <!-- START BUTTON -->
+
+        <button
+            class="start-button"
+            onclick="startGame()"
+        >
+
+            ▶ &nbsp; PRESS START TO BEGIN
+
+        </button>
+
+
+        <!-- FOOTER -->
+
+        <p class="footer-text">
+            Get ready... Your D'las challenge starts now!
+        </p>
+
+    </section>
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   START GAME
+===================================================== */
+
+function startGame() {
+
+    /*
+     * Clear previous game data
+     */
+
+    localStorage.removeItem(
+        "puzzleCompleted"
+    );
+
+    localStorage.removeItem(
+        "gameTime"
+    );
+
+    localStorage.removeItem(
+        "selectedGift"
+    );
+
+
+    /*
+     * Open the puzzle selection page.
+     */
+
+    window.location.href =
+        "puzzles.html";
+}
+
+</script>
+
+</body>
+</html>
